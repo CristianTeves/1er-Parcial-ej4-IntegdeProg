@@ -1,0 +1,139 @@
+Realizar un programa que seleccionar en pantalla poder realizar cuatro cálculos matemáticos 
+(suma, resta, multiplicación y división); pedir que seleccione el tipo de cálculo que se desee realizar (sólo uno); 
+Luego, solicitar que sean ingresadas las variables correspondientes en cada caso; Y, por último, imprimir el resultado en pantalla,
+indicando qué cálculo se realizo, aplicando en la medida que se pueda, aplicar los conceptos de Encapsulamiento, Herencia y Polimorfismo.
+
+
+import java.util.Scanner;
+
+public class Ejercicio4 {
+
+	public static void main(String[] args) {
+
+/*En este ejercicio se me ocurrió crear una clase Padre que se denomine Operación y 4 clases hijas que serian la suma, resta, multiplicación y división,
+para poder demostrar el polimorfismo, herencia y encapsulamiento.*/
+		
+		int opcion;
+		Scanner x = new Scanner (System.in);
+
+		System.out.println("Elija una opcion:");
+	    System.out.println("1. Suma");
+	    System.out.println("2. Resta");
+	    System.out.println("3. Multiplicacion");
+	    System.out.println("4. Division");
+		opcion = x.nextInt();
+		
+	    switch (opcion) {
+	    
+	    case 1 : 
+	    	Suma suma = new Suma ();
+	    	cargadedatos(suma);
+	    	System.out.println("La eleccion es una suma");
+	    	System.out.println("El resultado es:  "+suma.calculo());
+	   break;
+	    case 2 : 
+	    	Resta resta = new Resta();
+	    	cargadedatos(resta);
+	    	System.out.println("La eleccion es una resta");
+	        System.out.println("El resultado es: "+resta.calculo());
+	   break;
+	    case 3 :
+	    	Multiplicacion multi = new Multiplicacion();
+	    	cargadedatos(multi);
+	    	System.out.println("La eleccion es una Multiplicacion");
+	    	System.out.println("El total es : "+multi.calculo());
+	    break;
+	    case 4 : 
+	    	Division div = new Division();
+	    	cargadedatos(div);
+	    	System.out.println("La eleccion es una Division");
+	    	System.out.println("El total es: "+div.calculo());
+	    break;
+	    	
+	    }
+	    
+
+	
+	}
+	static void cargadedatos (Operacion obj) {
+		Scanner x = new Scanner (System.in);
+		System.out.println("Ingrese el primer valor");
+		obj.setNum1(x.nextInt());
+		System.out.println("Ingrese el segundo valor");
+		obj.setNum2(x.nextInt());
+	}
+
+}
+
+import java.io.InputStream;
+import java.util.Scanner;
+
+public abstract class Operacion {
+
+	protected int num1;
+	protected int num2;
+	
+	
+	public int getNum1() {
+		return num1;
+	}
+
+
+	public void setNum1(int numero1) {
+		num1 = numero1;
+	}
+
+    
+	public int getNum2() {
+		return num2;
+	}
+
+
+	public void setNum2(int numero2) {
+		num2 = numero2;
+	}
+	
+	public abstract double calculo();
+	
+}
+
+
+public class Suma extends Operacion{
+	
+	@Override
+	public double calculo() {
+		int suma = num1 + num2;
+		return suma;
+	}
+
+}
+
+public class Resta extends Operacion{
+	
+	@Override
+	public double calculo() {
+		int resta = num1 - num2;
+		return resta;
+	}
+
+}
+public class Multiplicacion extends Operacion{
+	@Override
+	public double calculo() {
+		
+		int multi = num1*num2;
+		return multi;
+	}
+	
+
+}
+
+public class Division extends Operacion {
+ 
+	@Override
+	public double calculo() {
+		
+		double div = num1 / num2;
+		return (int) div;
+	}
+}
